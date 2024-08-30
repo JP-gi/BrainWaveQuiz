@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BrainWave Quiz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e0f7fa;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .quiz-container {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            width: 350px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 1.6em;
+            margin-bottom: 20px;
+            color: #00796b;
+        }
+
+        .question-container {
+            display: none;
+        }
+
+        /* Show the target question container */
+        #question1:target,
+        #question2:target,
+        #question3:target,
+        #question4:target,
+        #question5:target {
+            display: block;
+        }
+
+        .question {
+            font-size: 1.2em;
+            margin-bottom: 10px;
+            color: #004d40;
+        }
+
+        .answers-container {
+            margin-bottom: 20px;
+        }
+
+        .answer-button {
+            display: block;
+            background-color: #00796b;
+            color: #ffffff;
+            padding: 12px;
+            margin: 8px 0;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 1em;
+        }
+
+        .answer-button:hover {
+            background-color: #004d40;
+        }
+
+        .result {
+            font-size: 1.2em;
+            color: #004d40;
+        }
+    </style>
+</head>
+<body>
+    <div class="quiz-container">
+        <h1>BrainWave Quiz</h1>
+
+        <!-- Question 1 -->
+        <div id="question1" class="question-container">
+            <p class="question">Which planet is known as the Red Planet?</p>
+            <div class="answers-container">
+                <a href="#question2" class="answer-button">Earth</a>
+                <a href="#question2" class="answer-button">Mars</a>
+                <a href="#question2" class="answer-button">Jupiter</a>
+                <a href="#question2" class="answer-button">Saturn</a>
+            </div>
+        </div>
+
+        <!-- Question 2 -->
+        <div id="question2" class="question-container">
+            <p class="question">What is the chemical symbol for gold?</p>
+            <div class="answers-container">
+                <a href="#question3" class="answer-button">Au</a>
+                <a href="#question3" class="answer-button">Ag</a>
+                <a href="#question3" class="answer-button">Fe</a>
+                <a href="#question3" class="answer-button">Pb</a>
+            </div>
+        </div>
+
+        <!-- Question 3 -->
+        <div id="question3" class="question-container">
+            <p class="question">Who wrote 'To Kill a Mockingbird'?</p>
+            <div class="answers-container">
+                <a href="#question4" class="answer-button">Harper Lee</a>
+                <a href="#question4" class="answer-button">Mark Twain</a>
+                <a href="#question4" class="answer-button">Ernest Hemingway</a>
+                <a href="#question4" class="answer-button">F. Scott Fitzgerald</a>
+            </div>
+        </div>
+
+        <!-- Question 4 -->
+        <div id="question4" class="question-container">
+            <p class="question">Which element has the atomic number 1?</p>
+            <div class="answers-container">
+                <a href="#question5" class="answer-button">Hydrogen</a>
+                <a href="#question5" class="answer-button">Helium</a>
+                <a href="#question5" class="answer-button">Oxygen</a>
+                <a href="#question5" class="answer-button">Carbon</a>
+            </div>
+        </div>
+
+        <!-- Question 5 -->
+        <div id="question5" class="question-container">
+            <p class="question">What is the largest ocean on Earth?</p>
+            <div class="answers-container">
+                <a href="#result" class="answer-button">Atlantic Ocean</a>
+                <a href="#result" class="answer-button">Indian Ocean</a>
+                <a href="#result" class="answer-button">Arctic Ocean</a>
+                <a href="#result" class="answer-button">Pacific Ocean</a>
+            </div>
+        </div>
+
+        <!-- Result Page -->
+        <div id="result" class="question-container">
+            <p class="result">Quiz Completed! Thank you for participating.</p>
+        </div>
+    </div>
+</body>
+</html>
