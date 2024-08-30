@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BrainWave Quiz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e0f7fa;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .quiz-container {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            width: 350px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 1.6em;
+            margin-bottom: 20px;
+            color: #00796b;
+        }
+
+        .question-container {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+
+        .question-container.show {
+            display: block;
+            opacity: 1;
+        }
+
+        .question {
+            font-size: 1.2em;
+            margin-bottom: 10px;
+            color: #004d40;
+        }
+
+        .answers-container {
+            margin-bottom: 20px;
+        }
+
+        .answer-button {
+            display: block;
+            background-color: #00796b;
+            color: #ffffff;
+            padding: 12px;
+            margin: 8px 0;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 1em;
+            border: none;
+            cursor: pointer;
+        }
+
+        .answer-button:hover {
+            background-color: #004d40;
+        }
+
+        .feedback {
+            font-size: 1.2em;
+            color: #004d40;
+            margin-top: 10px;
+        }
+
+        .explanation {
+            font-size: 1em;
+            color: #00796b;
+            margin-top: 5px;
+        }
+
+        .result, .leaderboard {
+            font-size: 1.2em;
+            color: #004d40;
+        }
+
+        .progress-container {
+            background-color: #b2dfdb;
+            border-radius: 8px;
+            height: 10px;
+            margin-bottom: 20px;
+            width: 100%;
+        }
+
+        .progress-bar {
+            background-color: #004d40;
+            height: 100%;
+            width: 0%;
+            border-radius: 8px;
+        }
+
+        .timer {
+            font-size: 1.2em;
+            color: #004d40;
+            margin-bottom: 20px;
+        }
+
+        @media (max-width: 600px) {
+            .quiz-container {
+                width: 90%;
+            }
+
+            .question {
+                font-size: 1em;
+            }
+
+            .answer-button {
+                font-size: 0.9em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="quiz-container">
+        <h1>BrainWave Quiz</h1>
+
+        <!-- Progress Bar -->
+        <div class="progress-container">
+            <div id="progress-bar" class="progress-bar"></div>
+        </div>
+
+        <!-- Timer -->
+        <div id="timer" class="timer">Time Left: <span id="timer-value">30</span> seconds</div>
+
+        <!-- Question containers -->
+        <div id="question1" class="question-container">
+            <p id="question1-label" class="question">Which planet is known as the Red Planet?</p>
+            <div class="answers-container">
+                <button class="answer-button" aria-label="Earth" data-next="question2" data-correct="false">Earth</button>
+                <button class="answer-button" aria-label="Mars" data-next="question2" data-correct="true">Mars</button>
+                <button class="answer-button" aria-label="Jupiter" data-next="question2" data-correct="false">Jupiter</button>
+                <button class="answer-button" aria-label="Saturn" data-next="question2" data-correct="false">Saturn</button>
+            </div>
+            <p class="feedback" style="display: none;"></p>
+            <p class="explanation" style="display: none;"></p>
+        </div>
+
+        <div id="question2" class="question-container">
+            <p id="question2-label" class="question">What is the chemical symbol for gold?</p>
+            <div class="answers-container">
+                <button class="answer-button" aria-label="Au" data-next="question3" data-correct="true">Au</button>
+                <button class="answer-button" aria-label="Ag" data-next="question3" data-correct="false">Ag</button>
+                <button class="answer-button" aria-label="Fe" data-next="question3" data-correct="false">Fe</button>
+                <button class="answer-button" aria-label="Pb" data-next="question3" data-correct="false">Pb</button>
+            </div>
+            <p class="feedback" style="display: none;"></p>
+            <p class="explanation" style="display: none;"></p>
+        </div>
+
+        <div id="question3" class="question-container">
+            <p id="question3-label" class="question">Who wrote 'To Kill a Mockingbird'?</p>
+            <div class="answers-container">
+                <button class="answer-button" aria-label="Harper Lee" data-next="question4" data-correct="true">Harper Lee</button>
+                <button class="answer-button" aria-label="Mark Twain" data-next="question4" data-correct="false">Mark Twain</button>
+                <button class="answer-button" aria-label="Ernest Hemingway" data-next="question4" data-correct="false">Ernest Hemingway</button>
+                <button class="answer-button" aria-label="F. Scott Fitzgerald" data-next="question4" data-correct="false">F. Scott Fitzgerald</button>
+            </div>
+            <p class="feedback" style="display: none;"></p>
+            <p class="explanation" style="display: none;"></p>
+        </div>
+
+        <div id="question4" class="question-container">
+            <p id="question4-label" class="question">Which element has the atomic number 1?</p>
+            <div class="answers-container">
+                <button class="answer-button" aria-label="Hydrogen" data-next="question5" data-correct="true">Hydrogen</button>
+                <button class="answer-button" aria-label="Helium" data-next="question5" data-correct="false">Helium</button>
+                <button class="answer-button" aria-label="Oxygen" data-next="question5" data-correct="false">Oxygen</button>
+                <button class="answer-button" aria-label="Carbon" data-next="question5" data-correct="false">Carbon</button>
+            </div>
+            <p class="feedback" style="display: none;"></p>
+            <p class="explanation" style="display: none;"></p>
+        </div>
+
+        <div id="question5" class="question-container">
+            <p id="question5-label" class="question">What is the largest ocean on Earth?</p>
+            <div class="answers-container">
+                <button class="answer-button" aria-label="Atlantic Ocean" data-next="result" data-correct="false">Atlantic Ocean</button>
+                <button class="answer-button" aria-label="Indian Ocean" data-next="result" data-correct="false">Indian Ocean</button>
+                <button class="answer-button" aria-label="Arctic Ocean" data-next="result" data-correct="false">Arctic Ocean</button>
+                <button class="answer-button" aria-label="Pacific Ocean" data-next="result" data-correct="true">Pacific Ocean</button>
+            </div>
+            <p class="feedback" style="display: none;"></p>
+            <p class="explanation" style="display: none;"></p>
+        </div>
+
+        <!-- Result Page -->
+        <div id="result" class="question-container">
+            <p class="result">Quiz Completed! Your score is: <span id="score">0</span>/5</p>
+            <button id="restart-quiz" class="answer-button">Restart Quiz</button>
+            <div id="leaderboard" class="leaderboard">
+                <h2>Leaderboard</h2>
+                <ul id="leaderboard-list"></ul>
+            </div>
+        </div>
+    </div>
+
+    <audio id="correct-sound" src="correct.mp3"></audio>
+    <audio id="incorrect-sound" src="incorrect.mp3"></audio>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            let currentQuestion = 1;
+            let score = 0;
+            let timer;
+            let timeLeft = 30;
+            const totalQuestions = 5;
+            const explanations = {
+                question1: {
+                    true: "Mars is known as the Red Planet because of its reddish appearance.",
+                    false: "The Red Planet is Mars, not Earth, Jupiter, or Saturn."
+                },
+                question2: {
+                    true: "The chemical symbol for gold is Au, derived from the Latin word 'aurum'.",
+                    false: "The correct symbol for gold is Au."
+                },
+                question3: {
+                    true: "'To Kill a Mockingbird' was written by Harper Lee.",
+                    false: "The correct author is Harper Lee, not Mark Twain, Ernest Hemingway, or F. Scott Fitzgerald."
+                },
+                question4: {
+                    true: "Hydrogen has the atomic number 1.",
+                    false: "The element with atomic number 1 is Hydrogen, not Helium, Oxygen, or Carbon."
+                },
+                question5: {
+                    true: "The Pacific Ocean is the largest ocean on Earth.",
+                    false: "The correct answer is the Pacific Ocean."
+                }
+            };
+
+            function showQuestion(id) {
+                const current = document.querySelector('.question-container.show');
+                if (current) {
+                    current.classList.remove('show');
+                }
+                const next = document.getElementById(id);
+                next.classList.add('show');
+                updateProgress();
+                startTimer();
+            }
+
+            function updateProgressBar(percentage) {
+                document.getElementById('progress-bar').style.width = `${percentage}%`;
+            }
+
+            function updateProgress() {
+                const progressPercentage = (currentQuestion / totalQuestions) * 100;
+                updateProgressBar(progressPercentage);
+            }
+
+            function startTimer() {
+                timeLeft = 30;
+                document.getElementById('timer-value').textContent = timeLeft;
+                timer = setInterval(() => {
+                    timeLeft--;
+                    document.getElementById('timer-value').textContent = timeLeft;
+                    if (timeLeft <= 0) {
+                        clearInterval(timer);
+                        handleAnswer(false);
+                    }
+                }, 1000);
+            }
+
+            function stopTimer() {
+                clearInterval(timer);
+            }
+
+            function updateScore(isCorrect) {
+                if (isCorrect) score++;
+                document.getElementById('score').textContent = score;
+            }
+
+            function showFeedback(isCorrect, explanation) {
+                const feedback = document.querySelector(`#question${currentQuestion} .feedback`);
+                feedback.style.display = 'block';
+                feedback.textContent = isCorrect ? 'Correct!' : 'Incorrect!';
+                feedback.style.color = isCorrect ? 'green' : 'red';
+
+                const explanationEl = document.querySelector(`#question${currentQuestion} .explanation`);
+                explanationEl.style.display = 'block';
+                explanationEl.textContent = explanation;
+            }
+
+            function playSound(isCorrect) {
+                const sound = document.getElementById(isCorrect ? 'correct-sound' : 'incorrect-sound');
+                sound.play();
+            }
+
+            function handleAnswer(isCorrect) {
+                stopTimer();
+                updateScore(isCorrect);
+                const explanation = explanations[`question${currentQuestion}`][isCorrect ? 'true' : 'false'];
+                showFeedback(isCorrect, explanation);
+                playSound(isCorrect);
+
+                setTimeout(() => {
+                    currentQuestion++;
+                    if (currentQuestion > totalQuestions) {
+                        showResult();
+                    } else {
+                        showQuestion(`question${currentQuestion}`);
+                    }
+                }, 2000);
+            }
+
+            function showResult() {
+                updateLeaderboard();
+                showQuestion('result');
+                stopTimer();
+            }
+
+            function updateLeaderboard() {
+                let highScores = JSON.parse(localStorage.getItem('highScores')) || [];
+                highScores.push(score);
+                highScores.sort((a, b) => b - a).slice(0, 5);
+                localStorage.setItem('highScores', JSON.stringify(highScores));
+
+                const leaderboardList = document.getElementById('leaderboard-list');
+                leaderboardList.innerHTML = highScores.map(score => `<li>${score}</li>`).join('');
+            }
+
+            document.getElementById('restart-quiz').addEventListener('click', () => {
+                currentQuestion = 1;
+                score = 0;
+                document.getElementById('score').textContent = score;
+                showQuestion(`question${currentQuestion}`);
+                updateProgress();
+                startTimer();
+            });
+
+            document.querySelector('.quiz-container').addEventListener('click', function(e) {
+                if (e.target.classList.contains('answer-button')) {
+                    const isCorrect = e.target.getAttribute('data-correct') === 'true';
+                    handleAnswer(isCorrect);
+                }
+            });
+
+            // Start the quiz
+            showQuestion(`question${currentQuestion}`);
+        });
+    </script>
+</body>
+</html>
