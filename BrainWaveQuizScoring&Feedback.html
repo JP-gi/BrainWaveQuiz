@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BrainWave Quiz</title>
+    <style>
+        /* Your existing CSS styles here */
+    </style>
+</head>
+<body>
+    <div class="quiz-container">
+        <h1>BrainWave Quiz</h1>
+
+        <!-- Question containers -->
+        <div id="question1" class="question-container">
+            <p class="question">Which planet is known as the Red Planet?</p>
+            <div class="answers-container">
+                <button class="answer-button" data-next="question2" data-correct="false">Earth</button>
+                <button class="answer-button" data-next="question2" data-correct="true">Mars</button>
+                <button class="answer-button" data-next="question2" data-correct="false">Jupiter</button>
+                <button class="answer-button" data-next="question2" data-correct="false">Saturn</button>
+            </div>
+            <p class="feedback" style="display: none;"></p>
+        </div>
+
+        <div id="question2" class="question-container">
+            <p class="question">What is the chemical symbol for gold?</p>
+            <div class="answers-container">
+                <button class="answer-button" data-next="question3" data-correct="true">Au</button>
+                <button class="answer-button" data-next="question3" data-correct="false">Ag</button>
+                <button class="answer-button" data-next="question3" data-correct="false">Fe</button>
+                <button class="answer-button" data-next="question3" data-correct="false">Pb</button>
+            </div>
+            <p class="feedback" style="display: none;"></p>
+        </div>
+
+        <div id="question3" class="question-container">
+            <p class="question">Who wrote 'To Kill a Mockingbird'?</p>
+            <div class="answers-container">
+                <button class="answer-button" data-next="question4" data-correct="true">Harper Lee</button>
+                <button class="answer-button" data-next="question4" data-correct="false">Mark Twain</button>
+                <button class="answer-button" data-next="question4" data-correct="false">Ernest Hemingway</button>
+                <button class="answer-button" data-next="question4" data-correct="false">F. Scott Fitzgerald</button>
+            </div>
+            <p class="feedback" style="display: none;"></p>
+        </div>
+
+        <div id="question4" class="question-container">
+            <p class="question">Which element has the atomic number 1?</p>
+            <div class="answers-container">
+                <button class="answer-button" data-next="question5" data-correct="true">Hydrogen</button>
+                <button class="answer-button" data-next="question5" data-correct="false">Helium</button>
+                <button class="answer-button" data-next="question5" data-correct="false">Oxygen</button>
+                <button class="answer-button" data-next="question5" data-correct="false">Carbon</button>
+            </div>
+            <p class="feedback" style="display: none;"></p>
+        </div>
+
+        <div id="question5" class="question-container">
+            <p class="question">What is the largest ocean on Earth?</p>
+            <div class="answers-container">
+                <button class="answer-button" data-next="result" data-correct="false">Atlantic Ocean</button>
+                <button class="answer-button" data-next="result" data-correct="false">Indian Ocean</button>
+                <button class="answer-button" data-next="result" data-correct="false">Arctic Ocean</button>
+                <button class="answer-button" data-next="result" data-correct="true">Pacific Ocean</button>
+            </div>
+            <p class="feedback" style="display: none;"></p>
+        </div>
+
+        <!-- Result Page -->
+        <div id="result" class="question-container">
+            <p class="result">Quiz Completed! Your score is: <span id="score">0</span>/5</p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            let currentQuestion = 1;
+            let score = 0;
+            
+            function showQuestion(id) {
+                document.querySelectorAll('.question-container').forEach(container => {
+                    container.style.display = 'none';
+                });
+                document.getElementById(id).style.display = 'block';
+            }
+            
+            function updateScore(isCorrect) {
+                if (isCorrect) {
+                    score++;
+                }
+            }
+            
+            function showFeedback(isCorrect) {
+                const feedback = document.querySelector(`#question${currentQuestion} .feedback`);
+                feedback.style.display = 'block';
+                feedback.textContent = isCorrect ? 'Correct!' : 'Incorrect!';
+                feedback.style.color = isCorrect ? 'green' : 'red';
+            }
+            
+            function showResult() {
+                document.getElementById('score').textContent = score;
+            }
+            
+            showQuestion(`question${currentQuestion}`);
+            
+            document.querySelector('.quiz-container').addEventListener('click', function(e) {
+                if (e.target.classList.contains('answer-button')) {
+                    const isCorrect = e.target.getAttribute('data-correct') === 'true';
+                    updateScore(isCorrect);
+                    showFeedback(isCorrect);
+                    
+                    const nextQuestion = e.target.getAttribute('data-next');
+                    setTimeout(() => {
+                        currentQuestion++;
+                        showQuestion(nextQuestion);
+                    }, 1000); // Short delay for feedback to be visible
+                }
+            });
+            
+            // Final score display
+            document.getElementById('result').addEventListener('click', function() {
+                showResult();
+            });
+        });
+    </script>
+</body>
+</html>
