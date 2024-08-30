@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BrainWave Quiz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e0f7fa;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .quiz-container {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            width: 350px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 1.6em;
+            margin-bottom: 20px;
+            color: #00796b;
+        }
+
+        .question-container {
+            display: none;
+        }
+
+        .question {
+            font-size: 1.2em;
+            margin-bottom: 10px;
+            color: #004d40;
+        }
+
+        .answers-container {
+            margin-bottom: 20px;
+        }
+
+        .answer-button {
+            display: block;
+            background-color: #00796b;
+            color: #ffffff;
+            padding: 12px;
+            margin: 8px 0;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 1em;
+        }
+
+        .answer-button:hover {
+            background-color: #004d40;
+        }
+
+        .result {
+            font-size: 1.2em;
+            color: #004d40;
+        }
+    </style>
+</head>
+<body>
+    <div class="quiz-container">
+        <h1>BrainWave Quiz</h1>
+
+        <!-- Question containers -->
+        <div id="question1" class="question-container">
+            <p class="question">Which planet is known as the Red Planet?</p>
+            <div class="answers-container">
+                <button class="answer-button" data-next="question2">Earth</button>
+                <button class="answer-button" data-next="question2">Mars</button>
+                <button class="answer-button" data-next="question2">Jupiter</button>
+                <button class="answer-button" data-next="question2">Saturn</button>
+            </div>
+        </div>
+
+        <div id="question2" class="question-container">
+            <p class="question">What is the chemical symbol for gold?</p>
+            <div class="answers-container">
+                <button class="answer-button" data-next="question3">Au</button>
+                <button class="answer-button" data-next="question3">Ag</button>
+                <button class="answer-button" data-next="question3">Fe</button>
+                <button class="answer-button" data-next="question3">Pb</button>
+            </div>
+        </div>
+
+        <div id="question3" class="question-container">
+            <p class="question">Who wrote 'To Kill a Mockingbird'?</p>
+            <div class="answers-container">
+                <button class="answer-button" data-next="question4">Harper Lee</button>
+                <button class="answer-button" data-next="question4">Mark Twain</button>
+                <button class="answer-button" data-next="question4">Ernest Hemingway</button>
+                <button class="answer-button" data-next="question4">F. Scott Fitzgerald</button>
+            </div>
+        </div>
+
+        <div id="question4" class="question-container">
+            <p class="question">Which element has the atomic number 1?</p>
+            <div class="answers-container">
+                <button class="answer-button" data-next="question5">Hydrogen</button>
+                <button class="answer-button" data-next="question5">Helium</button>
+                <button class="answer-button" data-next="question5">Oxygen</button>
+                <button class="answer-button" data-next="question5">Carbon</button>
+            </div>
+        </div>
+
+        <div id="question5" class="question-container">
+            <p class="question">What is the largest ocean on Earth?</p>
+            <div class="answers-container">
+                <button class="answer-button" data-next="result">Atlantic Ocean</button>
+                <button class="answer-button" data-next="result">Indian Ocean</button>
+                <button class="answer-button" data-next="result">Arctic Ocean</button>
+                <button class="answer-button" data-next="result">Pacific Ocean</button>
+            </div>
+        </div>
+
+        <!-- Result Page -->
+        <div id="result" class="question-container">
+            <p class="result">Quiz Completed! Thank you for participating.</p>
+        </div>
+    </div>
+
+    <script>
+        // Initialize the quiz
+        document.addEventListener('DOMContentLoaded', () => {
+            let currentQuestion = 1;
+
+            // Function to show a specific question
+            function showQuestion(id) {
+                document.querySelectorAll('.question-container').forEach(container => {
+                    container.style.display = 'none';
+                });
+                document.getElementById(id).style.display = 'block';
+            }
+
+            // Show the first question
+            showQuestion(`question${currentQuestion}`);
+
+            // Event delegation for answer buttons
+            document.querySelector('.quiz-container').addEventListener('click', function(e) {
+                if (e.target.classList.contains('answer-button')) {
+                    const nextQuestion = e.target.getAttribute('data-next');
+                    showQuestion(nextQuestion);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
